@@ -7,7 +7,7 @@
 # 3. Create lists to store words and their corresponding frequencies.
 # 4. Iterate through words and update frequencies
 
-import re
+import re, string
 
 #This is a function that checks if a text qualifies as a sentence. You do not need to modify this!
 def is_sentence(text):
@@ -33,5 +33,17 @@ user_sentence = input("Enter a sentence: ")
 
 while (is_sentence(user_sentence) == False):
     print("This does not meet the criteria for a sentence.")
-    user_input = input("Enter a sentence: ")
-    
+    user_sentence = input("Enter a sentence: ")
+
+user_sentence = user_sentence.lower()
+user_sentence = re.sub(f"[{re.escape(string.punctuation)}]", "", user_sentence)
+words = user_sentence.split()
+wordCount = {}
+for word in words:
+    words.count(word)
+    if word not in wordCount:
+        wordCount.update({word:1}) 
+    else:
+        wordCount.update({word:wordCount[word]+1})
+for key, value in wordCount.items():
+    print(key+': '+str(value))
